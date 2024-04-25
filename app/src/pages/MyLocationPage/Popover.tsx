@@ -6,6 +6,17 @@ interface PopoverProps {
 
 const Popover: FC<PopoverProps> = ({ coords }) => {
   const { latitude, longitude, altitude, accuracy, altitudeAccuracy } = coords;
+  const formattedAccuracy = Math.round(accuracy).toLocaleString('en-US');
+  let formattedAltitude: string | null = null;
+  let formattedAltitudeAccuracy: string | null = null;
+
+  if (altitude) {
+    formattedAltitude = Math.round(altitude).toLocaleString('en-US');
+  }
+
+  if (altitudeAccuracy) {
+    formattedAltitudeAccuracy = Math.round(altitudeAccuracy).toLocaleString('en-US');
+  }
 
   return (
     <div className="pin-popover">
@@ -22,15 +33,15 @@ const Popover: FC<PopoverProps> = ({ coords }) => {
           <span>Longitude: {longitude}</span>
         </div>
         <div>
-          <span>Accuracy: {accuracy}</span>
+          <span>Accuracy: {formattedAccuracy} m</span>
         </div>
         {
-          altitude && altitudeAccuracy && ([
+          (formattedAltitude && formattedAltitudeAccuracy) && ([
             <div key={0}>
-              <span>Altitude: {altitude}m</span>
+              <span>Altitude: {formattedAltitude} m</span>
             </div>,
             <div key={1}>
-              <span>Altitude: {altitudeAccuracy}m</span>
+              <span>Altitude Accuracy: {formattedAltitudeAccuracy} m</span>
             </div>
           ])
         }

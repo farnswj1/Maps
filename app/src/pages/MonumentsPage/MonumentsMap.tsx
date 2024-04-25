@@ -17,13 +17,13 @@ const MonumentsMap: FC = () => {
       };
       const map = new google.maps.Map(ref.current, options);
       const manager = new MarkerManager(map, {});
-    
+
       google.maps.event.addListener(manager, 'loaded', async () => {
         const { AdvancedMarkerElement, PinElement } = (
           await google.maps.importLibrary('marker') as google.maps.MarkerLibrary
         );
         const infoWindow = new google.maps.InfoWindow();
-    
+
         MONUMENTS.forEach((monument) => {
           const { name, latitude, longitude } = monument;
           const position = { lat: latitude, lng: longitude };
@@ -38,14 +38,14 @@ const MonumentsMap: FC = () => {
             position,
             content: pin.element
           });
-    
+
           marker.addListener('click', () => {
             infoWindow.close();
             infoWindow.setContent(renderToString(<Popover monument={monument} />));
             infoWindow.open(marker.map, marker);
           });
         });
-    
+
         manager.refresh();
       });
     }

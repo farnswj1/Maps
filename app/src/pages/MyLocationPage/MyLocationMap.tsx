@@ -22,20 +22,20 @@ const MyLocationMap: FC = () => {
         };
         const map = new google.maps.Map(current, options);
         const manager = new MarkerManager(map, {});
-  
+
         google.maps.event.addListener(manager, 'loaded', async () => {
           const { AdvancedMarkerElement } = (
             await google.maps.importLibrary('marker') as google.maps.MarkerLibrary
           );
           const infoWindow = new google.maps.InfoWindow();
           const marker = new AdvancedMarkerElement({ map, position: location });
-    
+
           marker.addListener('click', () => {
             infoWindow.close();
             infoWindow.setContent(renderToString(<Popover coords={coords} />));
             infoWindow.open(marker.map, marker);
           });
-      
+
           manager.refresh();
         });
       });
