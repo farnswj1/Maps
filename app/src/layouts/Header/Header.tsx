@@ -9,6 +9,7 @@ const Header: FC = () => (
     <nav>
       <Link to="/parks">Parks</Link>
       <Link to="/">Monuments</Link>
+      <Link to="/me">My Location</Link>
     </nav>
   </header>
 );
