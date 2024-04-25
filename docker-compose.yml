@@ -1,0 +1,22 @@
+
+services:
+  app:
+    container_name: app
+    image: app
+    build: app
+    volumes:
+      - app_static:/opt/app/dist/:rw
+  nginx:
+    container_name: nginx
+    image: nginx:1.25-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - app_static:/opt/app/static/:ro
+    depends_on:
+      - app
+volumes:
+  app_static:
