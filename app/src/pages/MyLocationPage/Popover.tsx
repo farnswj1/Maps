@@ -33,15 +33,15 @@ const Popover: FC<PopoverProps> = ({ coords }) => {
           <span>Longitude: {longitude}</span>
         </div>
         <div>
-          <span>Accuracy: {formattedAccuracy} m</span>
+          <span>Accuracy: {formattedAccuracy}m</span>
         </div>
         {
           (formattedAltitude && formattedAltitudeAccuracy) && ([
             <div key={0}>
-              <span>Altitude: {formattedAltitude} m</span>
+              <span>Altitude: {formattedAltitude}m</span>
             </div>,
             <div key={1}>
-              <span>Altitude Accuracy: {formattedAltitudeAccuracy} m</span>
+              <span>Altitude Accuracy: {formattedAltitudeAccuracy}m</span>
             </div>
           ])
         }
