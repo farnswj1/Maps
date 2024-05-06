@@ -10,6 +10,7 @@ const MyLocationMap: FC = () => {
   useEffect(() => {
     if (ref.current) {
       const current = ref.current;
+      const listeners: google.maps.MapsEventListener[] = [];
 
       navigator.geolocation.getCurrentPosition((position) => {
         const { coords } = position;
@@ -30,15 +31,20 @@ const MyLocationMap: FC = () => {
           const infoWindow = new google.maps.InfoWindow();
           const marker = new AdvancedMarkerElement({ map, position: location });
 
-          marker.addListener('click', () => {
+          const listener = marker.addListener('click', () => {
             infoWindow.close();
             infoWindow.setContent(renderToString(<Popover coords={coords} />));
             infoWindow.open(marker.map, marker);
           });
 
+          listeners.push(listener);
           manager.refresh();
         });
       });
+
+      return () => listeners.forEach(listener => (
+        google.maps.event.removeListener(listener)
+      ));
     }
   }, [ref]);
 

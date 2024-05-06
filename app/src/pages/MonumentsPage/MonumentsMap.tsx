@@ -17,6 +17,7 @@ const MonumentsMap: FC = () => {
       };
       const map = new google.maps.Map(ref.current, options);
       const manager = new MarkerManager(map, {});
+      const listeners: google.maps.MapsEventListener[] = [];
 
       google.maps.event.addListener(manager, 'loaded', async () => {
         const { AdvancedMarkerElement, PinElement } = (
@@ -39,15 +40,21 @@ const MonumentsMap: FC = () => {
             content: pin.element
           });
 
-          marker.addListener('click', () => {
+          const listener = marker.addListener('click', () => {
             infoWindow.close();
             infoWindow.setContent(renderToString(<Popover monument={monument} />));
             infoWindow.open(marker.map, marker);
           });
+
+          listeners.push(listener);
         });
 
         manager.refresh();
       });
+
+      return () => listeners.forEach(listener => (
+        google.maps.event.removeListener(listener)
+      ));
     }
   }, [ref]);
 
