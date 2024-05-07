@@ -12,13 +12,12 @@ const MyLocationMap: FC = () => {
       const current = ref.current;
       const listeners: google.maps.MapsEventListener[] = [];
 
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { coords } = position;
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
         const { latitude, longitude } = coords;
-        const location = { lat: latitude, lng: longitude };
+        const position = { lat: latitude, lng: longitude };
         const options: google.maps.MapOptions = {
           mapId: "my-location-map",
-          center: location,
+          center: position,
           zoom: 16
         };
         const map = new google.maps.Map(current, options);
@@ -29,7 +28,7 @@ const MyLocationMap: FC = () => {
             await google.maps.importLibrary('marker') as google.maps.MarkerLibrary
           );
           const infoWindow = new google.maps.InfoWindow();
-          const marker = new AdvancedMarkerElement({ map, position: location });
+          const marker = new AdvancedMarkerElement({ map, position });
 
           const listener = marker.addListener('click', () => {
             infoWindow.close();
