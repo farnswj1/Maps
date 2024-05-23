@@ -4,18 +4,20 @@ interface PopoverProps {
   coords: GeolocationCoordinates;
 }
 
+const LOCALE = 'en-US';
+
 const Popover: FC<PopoverProps> = ({ coords }) => {
   const { latitude, longitude, altitude, accuracy, altitudeAccuracy } = coords;
-  const formattedAccuracy = Math.round(accuracy).toLocaleString('en-US');
+  const formattedAccuracy = Math.round(accuracy).toLocaleString(LOCALE);
   let formattedAltitude: string | null = null;
   let formattedAltitudeAccuracy: string | null = null;
 
   if (altitude) {
-    formattedAltitude = Math.round(altitude).toLocaleString('en-US');
+    formattedAltitude = Math.round(altitude).toLocaleString(LOCALE);
   }
 
   if (altitudeAccuracy) {
-    formattedAltitudeAccuracy = Math.round(altitudeAccuracy).toLocaleString('en-US');
+    formattedAltitudeAccuracy = Math.round(altitudeAccuracy).toLocaleString(LOCALE);
   }
 
   return (

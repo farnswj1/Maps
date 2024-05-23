@@ -1,9 +1,13 @@
-import { forwardRef, HTMLAttributes } from 'react';
+import { FC, PropsWithChildren } from 'react';
+import {
+  Map as GoogleMap,
+  MapProps as GoogleMapProps
+} from '@vis.gl/react-google-maps';
 
-type MapProps = HTMLAttributes<HTMLDivElement>;
+type MapProps = GoogleMapProps & PropsWithChildren;
 
-const Map = forwardRef<HTMLDivElement, MapProps>(
-  (props, ref) => <div id="map" {...props} ref={ref} />
+const Map: FC<MapProps> = (props) => (
+  <GoogleMap style={{ height: '100%', margin: 0 }} {...props} />
 );
 
 export default Map;

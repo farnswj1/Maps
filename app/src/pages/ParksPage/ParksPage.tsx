@@ -1,58 +1,31 @@
-import { FC, useEffect, useRef } from 'react';
-import { MarkerManager } from '@googlemaps/markermanager';
-import { MapContainer, PageContainer } from 'components';
+import { FC, useState } from 'react';
+import { Map, MapContainer, PageContainer, Spinner } from 'components';
 import { PARKS } from 'data';
-import ParksMap from './ParksMap';
+import ParkMarker from './ParkMarker';
 
 const ParksPage: FC = () => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      const options: google.maps.MapOptions = {
-        mapId: "us-parks-map",
-        center: { lat: 37.0902, lng: -95.7129 },
-        zoom: 3
-      };
-      const map = new google.maps.Map(ref.current, options);
-      const manager = new MarkerManager(map, {});
-
-      google.maps.event.addListener(manager, 'loaded', async () => {
-        const { AdvancedMarkerElement, PinElement } = (
-          await google.maps.importLibrary('marker') as google.maps.MarkerLibrary
-        );
-        const infoWindow = new google.maps.InfoWindow();
-
-        PARKS.forEach(({ title, lat, lng }) => {
-          const position = { lat, lng };
-          const pin = new PinElement({
-            borderColor: 'black',
-            background: '#7C3F00',
-            glyphColor: 'green'
-          });
-          const marker = new AdvancedMarkerElement({
-            map,
-            title,
-            position,
-            content: pin.element
-          });
-
-          marker.addListener('click', () => {
-            infoWindow.close();
-            infoWindow.setContent(marker.title);
-            infoWindow.open(marker.map, marker);
-          });
-        });
-
-        manager.refresh();
-      });
-    }
-  }, [ref]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   return (
     <PageContainer>
-      <MapContainer>
-        <ParksMap />
+      <MapContainer onLoad={() => setLoading(false)}>
+        {
+          loading ? (
+            <Spinner />
+          ) : (
+            <Map
+              mapId="us-parks-map"
+              defaultCenter={{ lat: 37.0902, lng: -95.7129 }}
+              defaultZoom={3}
+            >
+              {
+                PARKS.map(park => (
+                  <ParkMarker key={park.title} park={park} />
+                ))
+              }
+            </Map>
+          )
+        }
       </MapContainer>
     </PageContainer>
   );
