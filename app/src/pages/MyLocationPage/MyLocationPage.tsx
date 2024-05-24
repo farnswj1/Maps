@@ -1,11 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import {
-  ErrorMessage,
-  Map,
-  MapContainer,
-  PageContainer,
-  Spinner
-} from 'components';
+import { ErrorMessage, Map, PageContainer, Spinner } from 'components';
+import { MapProvider } from 'providers';
 import MyLocationMarker from './MyLocationMarker';
 
 const MyLocationPage: FC = () => {
@@ -36,7 +31,7 @@ const MyLocationPage: FC = () => {
       }
       {
         coordinates && (
-          <MapContainer onLoad={() => setLoading(false)}>
+          <MapProvider onLoad={() => setLoading(false)}>
             <Map
               mapId="my-location-map"
               defaultCenter={{
@@ -47,7 +42,7 @@ const MyLocationPage: FC = () => {
             >
               <MyLocationMarker coords={coordinates} />
             </Map>
-          </MapContainer>
+          </MapProvider>
         )
       }
     </PageContainer>

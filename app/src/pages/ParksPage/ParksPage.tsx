@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
-import { Map, MapContainer, PageContainer, Spinner } from 'components';
+import { Map, PageContainer, Spinner } from 'components';
+import { MapProvider } from 'providers';
 import { PARKS } from 'data';
 import ParkMarker from './ParkMarker';
 
@@ -8,7 +9,7 @@ const ParksPage: FC = () => {
 
   return (
     <PageContainer>
-      <MapContainer onLoad={() => setLoading(false)}>
+      <MapProvider onLoad={() => setLoading(false)}>
         {
           loading ? (
             <Spinner />
@@ -26,7 +27,7 @@ const ParksPage: FC = () => {
             </Map>
           )
         }
-      </MapContainer>
+      </MapProvider>
     </PageContainer>
   );
 };
