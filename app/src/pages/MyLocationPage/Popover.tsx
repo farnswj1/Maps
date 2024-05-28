@@ -49,7 +49,7 @@ const Popover: FC<PopoverProps> = ({ coords }) => {
         }
       </div>
     </div>
-  )
+  );
 };
 
 export default Popover;

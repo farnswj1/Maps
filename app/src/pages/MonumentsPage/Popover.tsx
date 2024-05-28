@@ -29,7 +29,7 @@ const Popover: FC<PopoverProps> = ({ monument }) => {
         {description}
       </div>
     </div>
-  )
+  );
 };
 
 export default Popover;
