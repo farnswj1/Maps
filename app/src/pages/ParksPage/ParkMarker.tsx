@@ -31,7 +31,9 @@ const ParkMarker: FC<ParkMarkerProps> = ({ park }) => {
       {
         open && (
           <InfoWindow anchor={marker} onClose={handleClose} shouldFocus>
-            {title}
+            <span className="text-base font-bold">
+              {title}
+            </span>
           </InfoWindow>
         )
       }

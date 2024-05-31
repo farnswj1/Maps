@@ -21,13 +21,13 @@ const Popover: FC<PopoverProps> = ({ coords }) => {
   }
 
   return (
-    <div className="pin-popover">
-      <div className="header">
-        <div className="title">
+    <div className="max-w-[300px]">
+      <div className="mb-4">
+        <div className="text-base font-bold">
           <b>My Location</b>
         </div>
       </div>
-      <div className="body">
+      <div>
         <div>
           <span>Latitude: {latitude}</span>
         </div>

@@ -7,7 +7,7 @@ import {
 type MapProps = GoogleMapProps & PropsWithChildren;
 
 const Map: FC<MapProps> = (props) => (
-  <GoogleMap style={{ height: '100%', margin: 0 }} {...props} />
+  <GoogleMap className="h-full m-0" {...props} />
 );
 
 export default Map;

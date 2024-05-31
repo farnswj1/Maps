@@ -10,9 +10,9 @@ const Popover: FC<PopoverProps> = ({ monument }) => {
   const formattedArea = area.toLocaleString('en-US');
 
   return (
-    <div className="pin-popover">
-      <div className="header">
-        <div className="title">
+    <div className="max-w-[300px]">
+      <div className="mb-4">
+        <div className="text-base font-bold">
           <b>{name}</b>
         </div>
         <div>
@@ -25,7 +25,7 @@ const Popover: FC<PopoverProps> = ({ monument }) => {
           <span>{formattedArea} acres</span>
         </div>
       </div>
-      <div className="body">
+      <div>
         {description}
       </div>
     </div>
